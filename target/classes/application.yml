@@ -1,0 +1,13 @@
+application:
+  challenge:
+    path: '/exchange-rate/v1'
+
+server:
+  port: 8081
+
+spring:
+  data:
+    mongodb:
+      database: 'dbExchangeRate'
+      port: '27017'
+      host: 'localhost'

@@ -1,0 +1,11 @@
+com\everis\challenge\repository\ExchangeRateRepository.class
+com\everis\challenge\service\impl\ExchangeRateServiceImpl.class
+com\everis\challenge\service\ExchangeRateService.class
+com\everis\challenge\model\api\UpdateExchangeRateRq.class
+com\everis\challenge\model\api\CurrencyCode.class
+com\everis\challenge\model\api\ExchangeRateRq.class
+com\everis\challenge\model\api\ExchangeRateRs.class
+com\everis\challenge\ChallengeEverisApplication.class
+com\everis\challenge\model\thridparty\ExchangeRate.class
+com\everis\challenge\model\api\Currency.class
+com\everis\challenge\controller\ExchangeRateController.class
