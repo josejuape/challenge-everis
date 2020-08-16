@@ -1,10 +1,11 @@
 package com.everis.challenge.controller;
 
-import com.everis.challenge.model.api.ExchangeRateListRs;
 import com.everis.challenge.model.api.ExchangeRateRq;
 import com.everis.challenge.model.api.ExchangeRateRs;
 import com.everis.challenge.model.api.UpdateExchangeRateRq;
+import com.everis.challenge.model.thridparty.ExchangeRate;
 import com.everis.challenge.service.ExchangeRateService;
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,7 @@ public class ExchangeRateController {
     @GetMapping(path = "/",
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Single<ExchangeRateListRs> list(){
+    public Flowable<ExchangeRate> list(){
         return exchangeRateService.list();
     }
 }

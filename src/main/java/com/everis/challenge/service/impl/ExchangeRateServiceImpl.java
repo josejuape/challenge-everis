@@ -4,6 +4,7 @@ import com.everis.challenge.model.api.*;
 import com.everis.challenge.model.thridparty.ExchangeRate;
 import com.everis.challenge.repository.ExchangeRateRepository;
 import com.everis.challenge.service.ExchangeRateService;
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import lombok.AllArgsConstructor;
@@ -53,10 +54,8 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
                 }).get());
     }
 
-    public Single<ExchangeRateListRs> list(){
-      ExchangeRateListRs exchangeRateListRs = new ExchangeRateListRs();
-      exchangeRateListRs.setLstExchangeRate(exchangeRateRepository.findAll());
-      return Single.just(exchangeRateListRs);
+    public Flowable<ExchangeRate> list(){
+      return Flowable.fromIterable(exchangeRateRepository.findAll());
     }
 
     private ExchangeRate  mapperToExchangeRate(ExchangeRateRq exchangeRateRq){
