@@ -1,6 +1,6 @@
 application:
   challenge:
-    path: '/exchange-rate/v1/'
+    path: '/exchange-rate/v1'
 
 server:
   port: 8080

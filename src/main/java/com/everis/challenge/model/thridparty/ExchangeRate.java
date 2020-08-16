@@ -14,6 +14,8 @@ import java.math.BigDecimal;
 @Document(collection = "exchange_rate")
 public class ExchangeRate {
 
+    private static final long serialVersionUID = 1;
+
     @Id
     private String id;
 

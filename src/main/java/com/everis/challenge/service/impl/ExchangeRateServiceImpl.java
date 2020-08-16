@@ -1,9 +1,6 @@
 package com.everis.challenge.service.impl;
 
-import com.everis.challenge.model.api.Currency;
-import com.everis.challenge.model.api.ExchangeRateRq;
-import com.everis.challenge.model.api.ExchangeRateRs;
-import com.everis.challenge.model.api.UpdateExchangeRateRq;
+import com.everis.challenge.model.api.*;
 import com.everis.challenge.model.thridparty.ExchangeRate;
 import com.everis.challenge.repository.ExchangeRateRepository;
 import com.everis.challenge.service.ExchangeRateService;
@@ -54,6 +51,12 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
                         return "Currency code not found!";
                     }
                 }).get());
+    }
+
+    public Single<ExchangeRateListRs> list(){
+      ExchangeRateListRs exchangeRateListRs = new ExchangeRateListRs();
+      exchangeRateListRs.setLstExchangeRate(exchangeRateRepository.findAll());
+      return Single.just(exchangeRateListRs);
     }
 
     private ExchangeRate  mapperToExchangeRate(ExchangeRateRq exchangeRateRq){

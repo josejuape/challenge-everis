@@ -1,5 +1,6 @@
 package com.everis.challenge.controller;
 
+import com.everis.challenge.model.api.ExchangeRateListRs;
 import com.everis.challenge.model.api.ExchangeRateRq;
 import com.everis.challenge.model.api.ExchangeRateRs;
 import com.everis.challenge.model.api.UpdateExchangeRateRq;
@@ -17,16 +18,23 @@ public class ExchangeRateController {
 
     private ExchangeRateService exchangeRateService;
 
-    @PostMapping(path = "apply",
+    @PostMapping(path = "/apply",
       consumes = MediaType.APPLICATION_JSON_VALUE)
     public Single<ExchangeRateRs> apply(@RequestBody ExchangeRateRq exchangeRateRq){
       return exchangeRateService.apply(exchangeRateRq);
     }
 
-    @PostMapping(path = "update",
+    @PostMapping(path = "/update",
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Single<String> update(@RequestBody UpdateExchangeRateRq updateExchangeRateRq){
         return exchangeRateService.update(updateExchangeRateRq);
+    }
+
+    @GetMapping(path = "/",
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Single<ExchangeRateListRs> list(){
+        return exchangeRateService.list();
     }
 }
