@@ -30,7 +30,7 @@ public class SecurityContextRepositoryImpl implements ServerSecurityContextRepos
     public Mono<SecurityContext> load(ServerWebExchange serverWebExchange) {
         String bearer = "Bearer ";
 
-        log.info("API: SecurityContextRepositoryImpl - {}",serverWebExchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION));
+//        log.info("API: SecurityContextRepositoryImpl - {}",serverWebExchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION));
 
         return Mono.justOrEmpty(serverWebExchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION))
                 .filter(b -> b.startsWith(bearer))

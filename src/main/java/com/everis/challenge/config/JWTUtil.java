@@ -1,9 +1,10 @@
 package com.everis.challenge.config;
 
-import com.everis.challenge.domain.User;
+import com.everis.challenge.model.thridparty.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Base64;
@@ -11,17 +12,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Component
 public class JWTUtil {
 
     private String secret = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private String expireTimeInMiliSec = "30000";
+    private String expireTimeInMiliSec = "6000";
 
     public String generateToken(User user) {
         Date now = new Date();
         Map<String, Object> claim = new HashMap<>();
         claim.put("alg", "HS256");
         claim.put("typ", "JWT");
+
+        log.info("username: {}",user.getUsername());
 
         return Jwts.builder()
                 .setSubject(user.getUsername())

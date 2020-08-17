@@ -1,33 +1,31 @@
 package com.everis.challenge.model.thridparty;
 
 import com.everis.challenge.model.api.CurrencyCode;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
 @Getter
 @Setter
-@Document(collection = "exchange_rate")
+@Entity
 public class ExchangeRate {
-
-    private static final long serialVersionUID = 1;
-
     @Id
-    private String id;
+    @GeneratedValue
+    private Long id;
 
-    private CurrencyCode currencyOrigin;
+    private String currencyOrigin;
 
-    private CurrencyCode currencyDestiny;
+    private String currencyDestiny;
 
     private BigDecimal valueCurrency;
 
     public ExchangeRate(){}
 
-    public ExchangeRate(CurrencyCode currencyOrigin, CurrencyCode currencyDestiny, BigDecimal valueCurrency){
+    public ExchangeRate(String currencyOrigin, String currencyDestiny, BigDecimal valueCurrency){
         this.currencyOrigin = currencyOrigin;
         this.currencyDestiny = currencyDestiny;
         this.valueCurrency = valueCurrency;

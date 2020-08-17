@@ -1,11 +1,13 @@
 package com.everis.challenge.repository;
 
-import com.everis.challenge.domain.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.everis.challenge.model.thridparty.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public interface UserRepository extends MongoRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    UserDetails findByUsername(String username);
+    @Query(value = "SELECT * FROM User u WHERE u.username = ?1", nativeQuery = true)
+    User findByUsername(String username);
 
 }

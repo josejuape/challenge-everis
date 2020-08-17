@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 public class ExchangeRateRq implements Serializable {
   private static final long serialVersionUID = 1;
 
-//  @Digits(integer = 6, fraction = 2)
+  @Digits(integer = 6, fraction = 2)
   private BigDecimal amount;
 
   private CurrencyCode currencyOrigin;

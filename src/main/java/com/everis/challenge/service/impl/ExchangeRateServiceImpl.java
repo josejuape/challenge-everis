@@ -9,7 +9,6 @@ import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
     return Single.just(mapperToExchangeRate(exchangeRateRq))
             .map(ex -> exchangeRateRepository
-                    .findByCurrencyOriginAndCurrencyDestiny(ex.getCurrencyOrigin().name(),ex.getCurrencyDestiny().name()))
+                    .findByCurrencyOriginAndCurrencyDestiny(ex.getCurrencyOrigin().toString(),ex.getCurrencyDestiny().toString()))
             .map(result -> this.calculateExchangeRate(exchangeRateRq, result))
             .subscribeOn(Schedulers.io());
   }
@@ -39,8 +38,8 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
     public Single<String> update(UpdateExchangeRateRq updateExchangeRateRq) {
       return Single.just(Optional.ofNullable(exchangeRateRepository
-                .findByCurrencyOriginAndCurrencyDestiny(updateExchangeRateRq.getCurrencyOrigin().name(),
-                        updateExchangeRateRq.getCurrencyDestiny().name()))
+                .findByCurrencyOriginAndCurrencyDestiny(updateExchangeRateRq.getCurrencyOrigin().toString(),
+                        updateExchangeRateRq.getCurrencyDestiny().toString()))
                 .map(ex -> {
                     log.info("ExchangeRate find: {}",ex);
                     if (Objects.nonNull(ex)){
@@ -60,8 +59,8 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
     private ExchangeRate  mapperToExchangeRate(ExchangeRateRq exchangeRateRq){
         ExchangeRate exchangeRate = new ExchangeRate();
-        exchangeRate.setCurrencyOrigin(exchangeRateRq.getCurrencyOrigin());
-        exchangeRate.setCurrencyDestiny(exchangeRateRq.getCurrencyDestiny());
+        exchangeRate.setCurrencyOrigin(exchangeRateRq.getCurrencyOrigin().name());
+        exchangeRate.setCurrencyDestiny(exchangeRateRq.getCurrencyDestiny().name());
         return exchangeRate;
     }
 
@@ -72,10 +71,10 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
         log.info("ExchangeRate: {}",result);
 
-        currencyOrigin.setCurrencyCode(result.getCurrencyOrigin());
+        currencyOrigin.setCurrencyCode(Enum.valueOf(CurrencyCode.class,result.getCurrencyOrigin()));
         currencyOrigin.setAmount(exchangeRateRq.getAmount());
         currencyDestiny.setAmount(exchangeRateRq.getAmount().multiply(result.getValueCurrency()));
-        currencyDestiny.setCurrencyCode(result.getCurrencyDestiny());
+        currencyDestiny.setCurrencyCode(Enum.valueOf(CurrencyCode.class,result.getCurrencyDestiny()));
 
         exchangeRateRs.setMoneyOrigin(currencyOrigin);
         exchangeRateRs.setMoneyDestiny(currencyDestiny);

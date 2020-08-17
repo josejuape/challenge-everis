@@ -31,7 +31,7 @@ public class WebFluxSecurityConfigurer {
     @Bean
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http) {
 
-        log.info("filterChain: {}",http.toString());
+//        log.info("filterChain: {}",http.toString());
 
         return http.authorizeExchange(
                 authorizeExchangeSpec -> authorizeExchangeSpec

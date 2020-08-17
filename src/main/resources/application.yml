@@ -5,13 +5,11 @@ application:
 server:
   port: 8081
 
+
 spring:
-  data:
-    mongodb:
-      database: 'dbExchangeRate'
-      port: '27017'
-      host: 'localhost'
-  mongodb:
-    embedded:
-      version: '3.2.22'
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: 'org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl'
+
 

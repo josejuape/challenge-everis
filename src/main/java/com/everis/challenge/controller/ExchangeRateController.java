@@ -2,7 +2,7 @@ package com.everis.challenge.controller;
 
 import com.everis.challenge.config.AuthResponse;
 import com.everis.challenge.config.JWTUtil;
-import com.everis.challenge.domain.User;
+import com.everis.challenge.model.thridparty.User;
 import com.everis.challenge.model.api.ExchangeRateRq;
 import com.everis.challenge.model.api.ExchangeRateRs;
 import com.everis.challenge.model.api.UpdateExchangeRateRq;
@@ -18,9 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.server.ServerRequest;
-import org.springframework.web.reactive.function.server.ServerResponse;
-import reactor.core.publisher.Mono;
 
 @Slf4j
 @AllArgsConstructor
@@ -62,10 +59,11 @@ public class ExchangeRateController {
 
         UserDetails userDetails = userRepository.findByUsername(user.getUsername());
         log.info("UserDetails: {}",userDetails);
-//        if(user.getPassword().equals(userDetails.getPassword())) {
-//
-//        }
-        return Single.just(new AuthResponse(jwtUtil.generateToken(user)));
+
+        if(user.getUsername().equals(userDetails.getUsername())) {
+            return Single.just(new AuthResponse(jwtUtil.generateToken(user)));
+        }
+        return Single.just(new AuthResponse("Error: Usuario no existe!"));
     }
 
 

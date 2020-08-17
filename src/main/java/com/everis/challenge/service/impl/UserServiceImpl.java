@@ -1,6 +1,6 @@
 package com.everis.challenge.service.impl;
 
-import com.everis.challenge.domain.User;
+import com.everis.challenge.model.thridparty.User;
 import com.everis.challenge.repository.UserRepository;
 import com.everis.challenge.service.UserService;
 import lombok.AllArgsConstructor;
