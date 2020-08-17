@@ -11,3 +11,4 @@ spring:
       database: 'dbExchangeRate'
       port: '27017'
       host: 'localhost'
+

@@ -1,24 +1,28 @@
 package com.everis.challenge;
 
+import com.everis.challenge.domain.User;
 import com.everis.challenge.model.api.CurrencyCode;
 import com.everis.challenge.model.thridparty.ExchangeRate;
-import com.everis.challenge.repository.ExchangeRateRepository;
 import com.everis.challenge.service.ExchangeRateService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.everis.challenge.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootApplication
+@AllArgsConstructor
+@SpringBootApplication(scanBasePackages = {"com.everis.challenge"})
 public class ChallengeEverisApplication {
 
-	@Autowired
-	ExchangeRateService exchangeRateService;
+	private ExchangeRateService exchangeRateService;
+
+	private UserService userService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ChallengeEverisApplication.class, args);
@@ -33,7 +37,10 @@ public class ChallengeEverisApplication {
 		   list.add(new ExchangeRate(CurrencyCode.EUR,CurrencyCode.PEN, BigDecimal.valueOf(4.23)));
 		   list.add(new ExchangeRate(CurrencyCode.PEN,CurrencyCode.EUR, BigDecimal.valueOf(0.24)));
 		   exchangeRateService.save(list);
-	   };
+
+		   User user = new User("josejuape", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("juape123"));
+		   userService.save(user);
+       };
 	}
 
 }
